@@ -12,7 +12,7 @@ public class EnumConstantCreator {
 	}
 
 	public <T extends Enum<?>> T create(AnnotationEnumElem eElem) {
-		String clazzName = TargetClassLoader.toQuallifiedClassName(eElem.getTypeName());
+		String clazzName = MethodUtils.toQuallifiedClassName(eElem.getTypeName());
 		Class<?> clazz = cl.loadClass(clazzName);
 
 		T result = null;

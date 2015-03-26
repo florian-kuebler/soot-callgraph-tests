@@ -11,25 +11,29 @@ import org.opalj.ai.test.invokedynamic.annotations.InvokedMethod;
 import soot.SootMethod;
 import de.tud.cs.peaks.sootconfig.AnalysisTarget;
 import de.tud.cs.soot.callgraph.CorrectCallgraphAnalysis;
+import de.tud.cs.soot.callgraph.IMethodMatcher;
+import de.tud.cs.soot.callgraph.NameAndRecieverMatcher;
 import de.tud.cs.soot.callgraph.targets.Targets;
+import de.tud.cs.soot.callgraph.util.MethodUtils;
 
 public class VTATest {
 
 	@Test
 	public void test() {
 		
-		
 		AnalysisTarget target = Targets.getDefaultTarget();
 
 		BiConsumer<SootMethod, InvokedMethod> miss = (sm, im) -> {
-			fail();
+			fail("Missed Call: " + sm + " -> " + MethodUtils.toSootMethodStyle(im));
 		};
 		
 		BiConsumer<SootMethod, InvokedMethod> pass = (sm, im) -> {
 			assertTrue(true);
 		};
 		
-		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.BasicVTA, target, pass, miss);
+		IMethodMatcher matcher = new NameAndRecieverMatcher();
+		
+		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.BasicVTA, target, matcher, pass, miss);
 		cca.perform();
 	}
 

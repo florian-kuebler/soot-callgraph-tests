@@ -32,13 +32,16 @@ public class CorrectCallgraphAnalysis {
 	private CallGraphAlgorithm cga;
 	private BiConsumer<SootMethod, InvokedMethod> pass;
 	private BiConsumer<SootMethod, InvokedMethod> miss;
+	private IMethodMatcher matcher;
+	
 
-	public CorrectCallgraphAnalysis(CallGraphAlgorithm cga, AnalysisTarget target,
+	public CorrectCallgraphAnalysis(CallGraphAlgorithm cga, AnalysisTarget target, IMethodMatcher matcher,
 			BiConsumer<SootMethod, InvokedMethod> pass, BiConsumer<SootMethod, InvokedMethod> miss) {
 		this.target = target;
 		this.cga = cga;
 		this.imc = new InvokedMethodCreator(new TargetClassLoader(target));
 		this.imsc = new InvokedMethodsCreator(imc);
+		this.matcher = matcher;
 		this.pass = pass;
 		this.miss = miss;
 		switch (cga) {
@@ -60,7 +63,6 @@ public class CorrectCallgraphAnalysis {
 
 		Scene scene = res.getScene();
 		checkClasses(scene);
-		System.out.println("Passed");
 	}
 
 	private void checkClasses(Scene scene) {
@@ -97,14 +99,13 @@ public class CorrectCallgraphAnalysis {
 	}
 
 	private void checkCall(Scene scene, SootMethod sm, InvokedMethod invokedMethod) {
-		if (!Arrays.asList(invokedMethod.isContainedIn()).contains(cga)) {
+		if (!Arrays.asList(invokedMethod.isContainedIn()).contains(cga) || invokedMethod.isReflective()) {
 			return;
 		}
 		Iterator<Edge> edges = scene.getCallGraph().edgesOutOf(sm);
 		while (edges.hasNext()) {
 			Edge edge = edges.next();
-			// TODO more precise check
-			if (edge.tgt().getName().equals(invokedMethod.name())) {
+			if (matcher.match(edge.tgt(), invokedMethod)) {
 				pass.accept(sm, invokedMethod);
 				return;
 			}

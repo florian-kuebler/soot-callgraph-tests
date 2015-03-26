@@ -7,7 +7,7 @@ public class Targets {
 	public static AnalysisTarget getDefaultTarget() {
 		AnalysisTarget target = new AnalysisTarget();
 
-		target.processPath("./target/test-classes");
+		target.processPath("./target/test-classes/");
 		target.setEntryPointCalculator(new AllConcreteMethodsEP());		
 		return target;
 	}

@@ -37,11 +37,5 @@ public class TargetClassLoader {
 
 		return null;
 	}
-	
-	public static String toQuallifiedClassName(String name) {
-		name = name.substring(1, name.length() - 1);
-		name = name.replace('/', '.');
-		return name;
-	}
 
 }

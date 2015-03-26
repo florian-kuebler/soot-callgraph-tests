@@ -8,22 +8,27 @@ import org.opalj.ai.test.invokedynamic.annotations.InvokedMethod;
 import soot.SootMethod;
 import de.tud.cs.peaks.sootconfig.AnalysisTarget;
 import de.tud.cs.soot.callgraph.targets.Targets;
+import de.tud.cs.soot.callgraph.util.MethodUtils;
 
 public class Main {
 
 	public static void main(String[] args) {
 		AnalysisTarget target = Targets.getDefaultTarget();
+		
 
 		BiConsumer<SootMethod, InvokedMethod> pass = (sm, im) -> {
+			System.out.println("Passed: " + sm + " -> " + MethodUtils.toSootMethodStyle(im));
 		};
 		
 		BiConsumer<SootMethod, InvokedMethod> miss = (sm, im) -> {
 			new CallNotFoundException(sm, im).printStackTrace();
 		};
 		
-		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.CHA, target, pass, miss);
+		IMethodMatcher matcher = new NameAndRecieverMatcher();
+		
+		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.CHA, target, matcher, pass, miss);
 		cca.perform();
-		cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.BasicVTA, target, pass, miss);
+		cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.BasicVTA, target, matcher, pass, miss);
 		cca.perform();
 	}
 

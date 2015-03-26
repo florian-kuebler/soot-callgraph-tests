@@ -53,7 +53,7 @@ public class InvokedMethodCreator {
 			 */
 			else if (elem instanceof AnnotationClassElem) {
 				AnnotationClassElem cElem = (AnnotationClassElem) elem;
-				String clazzName = TargetClassLoader.toQuallifiedClassName(cElem.getDesc());
+				String clazzName = MethodUtils.toQuallifiedClassName(cElem.getDesc());
 				Class<?> clazz = cl.loadClass(clazzName);
 				classElems.put(cElem.getName(), clazz);
 			}
@@ -183,6 +183,9 @@ public class InvokedMethodCreator {
 
 			@Override
 			public Class<?>[] parameterTypes() {
+				if (parameterTypes == null){
+					return new Class<?>[0];
+				}
 				return parameterTypes;
 			}
 
@@ -230,7 +233,7 @@ public class InvokedMethodCreator {
 		for (AnnotationElem e : aElem.getValues()) {
 			if (e instanceof AnnotationClassElem) {
 				AnnotationClassElem cElem = (AnnotationClassElem) e;
-				String clazz = TargetClassLoader.toQuallifiedClassName(cElem.getDesc());
+				String clazz = MethodUtils.toQuallifiedClassName(cElem.getDesc());
 				classes.add(cl.loadClass(clazz));
 			} else
 				return null;
