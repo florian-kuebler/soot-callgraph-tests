@@ -15,32 +15,28 @@ import soot.jimple.toolkits.callgraph.Edge;
 import soot.tagkit.AnnotationTag;
 import soot.tagkit.Tag;
 import soot.tagkit.VisibilityAnnotationTag;
+import soot.util.annotations.AnnotationInstanceCreator;
 import de.tud.cs.peaks.sootconfig.AnalysisTarget;
 import de.tud.cs.peaks.sootconfig.FluentOptions;
 import de.tud.cs.peaks.sootconfig.SootResult;
 import de.tud.cs.peaks.sootconfig.SootRun;
 import de.tud.cs.soot.callgraph.options.Options;
-import de.tud.cs.soot.callgraph.util.InvokedMethodCreator;
-import de.tud.cs.soot.callgraph.util.InvokedMethodsCreator;
-import de.tud.cs.soot.callgraph.util.TargetClassLoader;
 
 public class CorrectCallgraphAnalysis {
-	private InvokedMethodCreator imc;
-	private InvokedMethodsCreator imsc;
 	private FluentOptions options;
 	private AnalysisTarget target;
 	private CallGraphAlgorithm cga;
 	private BiConsumer<SootMethod, InvokedMethod> pass;
 	private BiConsumer<SootMethod, InvokedMethod> miss;
 	private IMethodMatcher matcher;
+	private AnnotationInstanceCreator aic;
 	
 
 	public CorrectCallgraphAnalysis(CallGraphAlgorithm cga, AnalysisTarget target, IMethodMatcher matcher,
 			BiConsumer<SootMethod, InvokedMethod> pass, BiConsumer<SootMethod, InvokedMethod> miss) {
 		this.target = target;
 		this.cga = cga;
-		this.imc = new InvokedMethodCreator(new TargetClassLoader(target));
-		this.imsc = new InvokedMethodsCreator(imc);
+		this.aic = new AnnotationInstanceCreator();
 		this.matcher = matcher;
 		this.pass = pass;
 		this.miss = miss;
@@ -82,10 +78,10 @@ public class CorrectCallgraphAnalysis {
 
 					switch (at.getType()) {
 					case "Lorg/opalj/ai/test/invokedynamic/annotations/InvokedMethod;":
-						checkCall(scene, sm, imc.create(at));
+						checkCall(scene, sm, (InvokedMethod) aic.create(at));
 						break;
 					case "Lorg/opalj/ai/test/invokedynamic/annotations/InvokedMethods;":
-						InvokedMethods invokedMethods = imsc.create(at);
+						InvokedMethods invokedMethods = (InvokedMethods) aic.create(at);
 						for (InvokedMethod invokedMethod : invokedMethods.value()) {
 							checkCall(scene, sm, invokedMethod);
 						}
