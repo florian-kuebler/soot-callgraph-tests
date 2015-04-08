@@ -93,7 +93,7 @@ public class CorrectCallgraphAnalysis {
 			}
 		}
 	}
-
+	
 	private void checkCall(Scene scene, SootMethod sm, InvokedMethod invokedMethod) {
 		if (!Arrays.asList(invokedMethod.isContainedIn()).contains(cga) || invokedMethod.isReflective()) {
 			return;
@@ -106,6 +106,7 @@ public class CorrectCallgraphAnalysis {
 				return;
 			}
 		}
+		
 		miss.accept(sm, invokedMethod);
 	}
 }

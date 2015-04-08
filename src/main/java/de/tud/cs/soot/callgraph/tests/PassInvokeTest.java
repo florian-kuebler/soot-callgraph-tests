@@ -1,17 +1,18 @@
 package de.tud.cs.soot.callgraph.tests;
 
-import junit.framework.TestCase;
+import org.opalj.ai.test.invokedynamic.annotations.InvokedMethod;
 
-import org.junit.Test;
+import soot.SootMethod;
 
-public class PassInvokeTest extends TestCase {
-	
-	public PassInvokeTest(){
-		super("testMethodInvokation");
+public class PassInvokeTest extends AbstractInvokeTest {
+
+	public PassInvokeTest(SootMethod sootMethod, InvokedMethod invokedMethod) {
+		super(sootMethod, invokedMethod);
 	}
 
-	@Test
-	public void testMethodInvokation() {
+	@Override
+	protected void runTest() throws Throwable {
 		assertTrue(true);
+
 	}
 }

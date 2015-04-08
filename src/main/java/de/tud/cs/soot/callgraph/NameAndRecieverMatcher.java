@@ -7,8 +7,8 @@ import soot.SootMethod;
 public class NameAndRecieverMatcher implements IMethodMatcher {
 
 	@Override
-	public boolean match(SootMethod sm, InvokedMethod iv) {
-		return sm.getName().equals(iv.name())
-				&& sm.getDeclaringClass().getName().equals(iv.receiverType().replace('/', '.'));
+	public boolean match(SootMethod sootMethod, InvokedMethod invokedMethod) {
+		return sootMethod.getName().equals(invokedMethod.name())
+				&& sootMethod.getDeclaringClass().getName().equals(invokedMethod.receiverType().replace('/', '.'));
 	}
 }

@@ -76,6 +76,7 @@ public class ExecutionClass {
         innerClass.interfaceMethod();
     }
 
+    //TODO test jimple body
     @InvokedMethods({
             @InvokedMethod(receiverType = "callgraph/highPrecision/ExecutionClass$1", name = "interfaceMethod", line = 92),
             @InvokedMethod(receiverType = "callgraph/highPrecision/ConcreteClass", name = "interfaceMethod", line = 92, isContainedIn = { CHA }),
@@ -89,6 +90,7 @@ public class ExecutionClass {
             }
 
         };
+        
         anon.interfaceMethod();
     }
 }

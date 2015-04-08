@@ -6,6 +6,6 @@ import soot.SootMethod;
 
 public interface IMethodMatcher {
 	
-	public boolean match(SootMethod sm, InvokedMethod iv);
+	public boolean match(SootMethod sootMethod, InvokedMethod invokedMethod);
 
 }
