@@ -21,6 +21,9 @@ import de.tud.cs.peaks.sootconfig.FluentOptions;
 import de.tud.cs.peaks.sootconfig.SootResult;
 import de.tud.cs.peaks.sootconfig.SootRun;
 import de.tud.cs.soot.callgraph.options.Options;
+import de.tud.cs.soot.callgraph.result.Result;
+import de.tud.cs.soot.callgraph.result.ResultClass;
+import de.tud.cs.soot.callgraph.result.ResultMethod;
 
 public class CorrectCallgraphAnalysis {
 	private FluentOptions options;
@@ -53,23 +56,30 @@ public class CorrectCallgraphAnalysis {
 		}
 	}
 
-	public void perform() {
+	public Result perform() {
 		SootRun run = new SootRun(options, target);
 		SootResult res = run.perform();
 
 		Scene scene = res.getScene();
-		checkClasses(scene);
+		return checkClasses(scene);
 	}
 
-	private void checkClasses(Scene scene) {
+	private Result checkClasses(Scene scene) {
+		Result result = new Result();
+		
 		for (SootClass sc : scene.getApplicationClasses()) {
+			ResultClass clazz = result.addClass(sc);
 			for (SootMethod sm : sc.getMethods()) {
-				checkMethod(scene, sm);
+				ResultMethod method = clazz.addMethod(sm);
+				checkMethod(scene, method);
 			}
 		}
+		
+		return result;
 	}
 
-	private void checkMethod(Scene scene, SootMethod sm) {
+	private void checkMethod(Scene scene, ResultMethod method) {
+		SootMethod sm = method.getSootMethod();
 		for (Tag t : sm.getTags()) {
 			if (t instanceof VisibilityAnnotationTag) {
 				VisibilityAnnotationTag vat = (VisibilityAnnotationTag) t;
