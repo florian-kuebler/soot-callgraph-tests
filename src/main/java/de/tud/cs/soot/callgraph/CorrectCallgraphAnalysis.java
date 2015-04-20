@@ -2,7 +2,6 @@ package de.tud.cs.soot.callgraph;
 
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.function.BiConsumer;
 
 import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
 import org.opalj.ai.test.invokedynamic.annotations.InvokedMethod;
@@ -21,6 +20,8 @@ import de.tud.cs.peaks.sootconfig.FluentOptions;
 import de.tud.cs.peaks.sootconfig.SootResult;
 import de.tud.cs.peaks.sootconfig.SootRun;
 import de.tud.cs.soot.callgraph.options.Options;
+import de.tud.cs.soot.callgraph.result.DeclaredMethodCalled;
+import de.tud.cs.soot.callgraph.result.DeclaredMethodNotCalled;
 import de.tud.cs.soot.callgraph.result.Result;
 import de.tud.cs.soot.callgraph.result.ResultClass;
 import de.tud.cs.soot.callgraph.result.ResultMethod;
@@ -29,26 +30,20 @@ public class CorrectCallgraphAnalysis {
 	private FluentOptions options;
 	private AnalysisTarget target;
 	private CallGraphAlgorithm cga;
-	private BiConsumer<SootMethod, InvokedMethod> pass;
-	private BiConsumer<SootMethod, InvokedMethod> miss;
 	private IMethodMatcher matcher;
 	private AnnotationInstanceCreator aic;
-	
 
-	public CorrectCallgraphAnalysis(CallGraphAlgorithm cga, AnalysisTarget target, IMethodMatcher matcher,
-			BiConsumer<SootMethod, InvokedMethod> pass, BiConsumer<SootMethod, InvokedMethod> miss) {
+	public CorrectCallgraphAnalysis(CallGraphAlgorithm cga, AnalysisTarget target, IMethodMatcher matcher) {
 		this.target = target;
 		this.cga = cga;
 		this.aic = new AnnotationInstanceCreator();
 		this.matcher = matcher;
-		this.pass = pass;
-		this.miss = miss;
 		switch (cga) {
 		case CHA:
 			this.options = Options.getCHAFluentOptions();
 			break;
 		case BasicVTA:
-			this.options = Options.getRTAFluentOptions();
+			this.options = Options.getVTAFluentOptions();
 			break;
 
 		default:
@@ -66,15 +61,16 @@ public class CorrectCallgraphAnalysis {
 
 	private Result checkClasses(Scene scene) {
 		Result result = new Result();
-		
+
 		for (SootClass sc : scene.getApplicationClasses()) {
+			
 			ResultClass clazz = result.addClass(sc);
 			for (SootMethod sm : sc.getMethods()) {
 				ResultMethod method = clazz.addMethod(sm);
 				checkMethod(scene, method);
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -85,15 +81,14 @@ public class CorrectCallgraphAnalysis {
 				VisibilityAnnotationTag vat = (VisibilityAnnotationTag) t;
 
 				for (AnnotationTag at : vat.getAnnotations()) {
-
 					switch (at.getType()) {
 					case "Lorg/opalj/ai/test/invokedynamic/annotations/InvokedMethod;":
-						checkCall(scene, sm, (InvokedMethod) aic.create(at));
+						checkCall(scene, method, (InvokedMethod) aic.create(at));
 						break;
 					case "Lorg/opalj/ai/test/invokedynamic/annotations/InvokedMethods;":
 						InvokedMethods invokedMethods = (InvokedMethods) aic.create(at);
 						for (InvokedMethod invokedMethod : invokedMethods.value()) {
-							checkCall(scene, sm, invokedMethod);
+							checkCall(scene, method, invokedMethod);
 						}
 						break;
 					default:
@@ -103,20 +98,22 @@ public class CorrectCallgraphAnalysis {
 			}
 		}
 	}
-	
-	private void checkCall(Scene scene, SootMethod sm, InvokedMethod invokedMethod) {
+
+	private void checkCall(Scene scene, ResultMethod method, InvokedMethod invokedMethod) {
 		if (!Arrays.asList(invokedMethod.isContainedIn()).contains(cga) || invokedMethod.isReflective()) {
 			return;
 		}
-		Iterator<Edge> edges = scene.getCallGraph().edgesOutOf(sm);
+		Iterator<Edge> edges = scene.getCallGraph().edgesOutOf(method.getSootMethod());
 		while (edges.hasNext()) {
 			Edge edge = edges.next();
-			if (matcher.match(edge.tgt(), invokedMethod)) {
-				pass.accept(sm, invokedMethod);
+			SootMethod callee = edge.tgt();
+			if (matcher.match(callee, invokedMethod)) {
+				// pass.accept(method, invokedMethod);
+				method.addCall(new DeclaredMethodCalled(callee, invokedMethod));
 				return;
 			}
 		}
-		
-		miss.accept(sm, invokedMethod);
+		method.addCall(new DeclaredMethodNotCalled(invokedMethod));
+		// miss.accept(method, invokedMethod);
 	}
 }

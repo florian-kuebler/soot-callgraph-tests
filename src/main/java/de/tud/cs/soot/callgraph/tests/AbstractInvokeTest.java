@@ -13,7 +13,7 @@ public abstract class AbstractInvokeTest extends TestCase {
 	private InvokedMethod invokedMethod;
 	
 	public AbstractInvokeTest(SootMethod sootMethod, InvokedMethod invokedMethod) {
-		super(invokedMethod.line() + ": " + sootMethod.toString() + " -> " + MethodUtils.toSootMethodStyle(invokedMethod));
+		super(-1 + ": " + sootMethod.toString() + " -> " + MethodUtils.toSootMethodStyle(invokedMethod));
 		this.sootMethod = sootMethod;
 		this.invokedMethod = invokedMethod;
 	}

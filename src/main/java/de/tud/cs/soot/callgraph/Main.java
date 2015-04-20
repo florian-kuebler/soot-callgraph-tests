@@ -24,11 +24,11 @@ public class Main {
 		
 		IMethodMatcher matcher = new NameAndRecieverMatcher();
 		
-		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.CHA, target, matcher, pass, miss);
+		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.CHA, target, matcher);
 		cca.perform();
 		
 		
-		cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.BasicVTA, target, matcher, pass, miss);
+		cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.BasicVTA, target, matcher);
 		cca.perform();
 	}
 

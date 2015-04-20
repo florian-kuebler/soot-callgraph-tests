@@ -1,25 +1,25 @@
 package de.tud.cs.soot.callgraph.result;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import soot.SootMethod;
 
 public class ResultMethod {
 
+	private SootMethod sootMethod;
+	private Set<ResultCall> calls;
+
 	public ResultMethod(SootMethod sootMethod) {
 		this.sootMethod = sootMethod;
-		this.calls = new ArrayList<>();
+		this.calls = new HashSet<>();
 	}
-
-	private SootMethod sootMethod;
-	private List<ResultCall> calls;
 
 	public SootMethod getSootMethod() {
 		return sootMethod;
 	}
 
-	public List<ResultCall> getCalls() {
+	public Set<ResultCall> getCalls() {
 		return calls;
 	}
 
