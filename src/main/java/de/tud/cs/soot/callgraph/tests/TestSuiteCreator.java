@@ -1,11 +1,8 @@
 package de.tud.cs.soot.callgraph.tests;
 
-import java.util.function.BiConsumer;
-
 import junit.framework.TestSuite;
 
 import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
-import org.opalj.ai.test.invokedynamic.annotations.InvokedMethod;
 
 import soot.SootMethod;
 import de.tud.cs.peaks.sootconfig.AnalysisTarget;
@@ -24,38 +21,37 @@ import de.tud.cs.soot.callgraph.targets.Targets;
 public class TestSuiteCreator {
 
 	public static TestSuite createTestSuite(CallGraphAlgorithm cga) {
+		System.out.println("Create TestSuite");
 		AnalysisTarget target = Targets.getDefaultTarget();
+
 		final TestSuite suite = new TestSuite("CallCraph Tests");
-
-		BiConsumer<SootMethod, InvokedMethod> miss = (sm, im) -> {
-			suite.addTest(new MissInvokeTest(sm, im));
-		};
-
-		BiConsumer<SootMethod, InvokedMethod> pass = (sm, im) -> {
-			suite.addTest(new PassInvokeTest(sm, im));
-		};
 
 		IMethodMatcher matcher = new NameAndRecieverMatcher();
 
 		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(cga, target, matcher);
+		
+		System.out.println("Perform Analysis");
 		Result result = cca.perform();
+		System.out.println("Analysis Done!");
 
 		for (ResultClass clazz : result.getClasses()) {
 			TestSuite classSuite = new TestSuite(clazz.getSootClass().toString());
 
 			for (ResultMethod method : clazz.getMethods()) {
-				TestSuite methodSuite = new TestSuite(method.getSootMethod().toString());
+				SootMethod sootMethod = method.getSootMethod();
+				TestSuite methodSuite = new TestSuite(sootMethod.toString());
 				
 				for (ResultCall call : method.getCalls()) {
 					if (call instanceof DeclaredMethodCalled) {
-						methodSuite.addTest(new PassInvokeTest(method.getSootMethod(), ((DeclaredMethodCalled) call).getInvokedMethod()));;
+						DeclaredMethodCalled call2 = (DeclaredMethodCalled) call;						
+						methodSuite.addTest(new DeclaredMethodCalledTest(call2.getCallSite(), call2.getResolvedMethod()));;
 					} else if (call instanceof DeclaredMethodNotCalled) {
-
-						methodSuite.addTest(new MissInvokeTest(method.getSootMethod(), ((DeclaredMethodCalled) call).getInvokedMethod()));
+						DeclaredMethodNotCalled call2 = (DeclaredMethodNotCalled) call;	
+						methodSuite.addTest(new DeclaredCallNotFoundTest(call2.getCallSite(), call2.getResolvedMethod()));
 					} else if (call instanceof NotDeclaredMethodCalled) {
-						
+						methodSuite.addTest(new NotDeclaredCallFoundTest(((NotDeclaredMethodCalled) call).getCallee()));
 					} else
-						throw new RuntimeException();
+						throw new RuntimeException("Unexpected ResultCall: " + call);
 				}
 				
 				classSuite.addTest(methodSuite);

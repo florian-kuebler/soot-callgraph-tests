@@ -20,7 +20,7 @@ public class Options {
 		FluentOptions options = getBasicFluentOptions();
 
 		CallGraphPhaseOptions cg = new CallGraphPhaseOptions().processAllReachable();
-		ChaOptions cgCha = new ChaOptions().enable().disableVerboseMode();
+		ChaOptions cgCha = new ChaOptions().enable().enableVerboseMode();
 		cg.addSubOption(cgCha);
 
 		options.addPhaseOptions(cg);

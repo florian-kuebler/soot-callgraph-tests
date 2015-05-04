@@ -3,8 +3,6 @@ package de.tud.cs.soot.callgraph.result;
 import java.util.HashSet;
 import java.util.Set;
 
-import soot.SootClass;
-
 public class Result {
 	private Set<ResultClass> classes;
 
@@ -16,11 +14,8 @@ public class Result {
 		return classes;
 	}
 
-	public ResultClass addClass(SootClass sootClass) {
-		ResultClass result = new ResultClass(sootClass);
-		this.classes.add(result);
-
-		return result;
+	public void addClass(ResultClass clazz) {
+		this.classes.add(clazz);
 	}
 
 }

@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import soot.SootClass;
-import soot.SootMethod;
 
 public class ResultClass {
 	private SootClass sootClass;
@@ -23,13 +22,8 @@ public class ResultClass {
 		return methods;
 	}
 
-	public ResultMethod addMethod(SootMethod sootMethod) {
-		
-		ResultMethod method = new ResultMethod(sootMethod);
-		
+	public void addMethod(ResultMethod method) {
 		methods.add(method);
-
-		return method;
 	}
 
 	@Override
