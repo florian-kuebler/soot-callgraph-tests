@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.commons.lang3.ClassUtils;
 import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
 import org.opalj.ai.test.invokedynamic.annotations.CallSite;
 import org.opalj.ai.test.invokedynamic.annotations.CallSites;
@@ -99,12 +100,11 @@ public class CorrectCallgraphAnalysis {
 				}
 	
 				for (AnnotationTag at : vat.getAnnotations()) {
+					Set<SootMethod> methodsToRemove = new HashSet<>();
 					switch (at.getType()) {
 					case "Lorg/opalj/ai/test/invokedynamic/annotations/CallSites;":
-						System.out.println(at);
 						CallSites callSites = (CallSites) aic.create(at);
 						
-						Set<SootMethod> methodsToRemove = new HashSet<>();
 						
 						for (CallSite callSite : callSites.value()) {
 							resolvedMethodLoop:
@@ -134,6 +134,35 @@ public class CorrectCallgraphAnalysis {
 						}
 
 						break;
+						
+					case "Lorg/opalj/ai/test/invokedynamic/annotations/CallSite;":
+						CallSite callSite = (CallSite) aic.create(at);
+						
+						resolvedMethodLoop:
+						for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()){
+							methods.removeAll(methodsToRemove);
+							for (SootMethod sootMethod : methods) {
+								boolean check = false;
+								for (CallGraphAlgorithm algo : resolvedMethod.containedInMax()){
+									if (cga.hasSmallerOrEqualPrecision(algo)){
+										check = true;
+										break;
+									}
+								}
+								if (check && matcher.match(sootMethod, callSite, resolvedMethod)) {
+									method.addCall(new DeclaredMethodCalled(sootMethod, callSite, resolvedMethod));
+									methodsToRemove.add(sootMethod);
+									continue resolvedMethodLoop;
+								}
+							}
+							method.addCall(new DeclaredMethodNotCalled(callSite, resolvedMethod));
+						}
+						methodsToRemove.clear();
+					
+					
+					for (SootMethod sootMethod : methods){
+							method.addCall(new NotDeclaredMethodCalled(sootMethod));
+						}
 					default:
 						System.out.println("Unknown Annotation: " + at.getType());
 						break;
