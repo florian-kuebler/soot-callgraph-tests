@@ -11,7 +11,7 @@ public class DeclaredCallNotFoundTest extends AbstractDeclaredMethodTest {
 
 	@Override
 	protected void runTest() throws Throwable {
-		fail();
+		throw new RuntimeException("Declared method call not found: " + getResolvedMethod().receiverType() + getCallSite().name());
 	}
 
 }

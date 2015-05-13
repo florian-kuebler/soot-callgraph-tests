@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.apache.commons.lang3.ClassUtils;
 import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
 import org.opalj.ai.test.invokedynamic.annotations.CallSite;
 import org.opalj.ai.test.invokedynamic.annotations.CallSites;
@@ -57,7 +56,7 @@ public class CorrectCallgraphAnalysis {
 
 	public Result perform() {
 		SootRun run = new SootRun(options, target);
-		
+
 		System.out.println("Starting Soot with target: " + target);
 		SootResult res = run.perform();
 		System.out.println("Soot finished: " + res.totalSootRuntime());
@@ -73,11 +72,12 @@ public class CorrectCallgraphAnalysis {
 			for (SootMethod sm : sc.getMethods()) {
 				ResultMethod method = new ResultMethod(sm);
 				checkMethod(scene, method);
-				if(!method.getCalls().isEmpty()) {
+
+				if (!method.getCalls().isEmpty()) {
 					clazz.addMethod(method);
 				}
 			}
-			if(!clazz.getMethods().isEmpty()){
+			if (!clazz.getMethods().isEmpty()) {
 				result.addClass(clazz);
 			}
 		}
@@ -87,33 +87,34 @@ public class CorrectCallgraphAnalysis {
 
 	private void checkMethod(Scene scene, ResultMethod method) {
 		SootMethod sm = method.getSootMethod();
-		
+
 		for (Tag t : sm.getTags()) {
 			if (t instanceof VisibilityAnnotationTag) {
 				VisibilityAnnotationTag vat = (VisibilityAnnotationTag) t;
 				Set<SootMethod> methods = new HashSet<>();
-				
+
 				Iterator<Edge> edges = scene.getCallGraph().edgesOutOf(method.getSootMethod());
 				while (edges.hasNext()) {
 					Edge edge = edges.next();
-					methods.add(edge.tgt());
+					
+					// calls to constructors are not interesting
+					if (!edge.tgt().getName().equals("<clinit>") && !edge.tgt().getName().equals("<init>"))
+						methods.add(edge.tgt());
 				}
-	
+
 				for (AnnotationTag at : vat.getAnnotations()) {
 					Set<SootMethod> methodsToRemove = new HashSet<>();
 					switch (at.getType()) {
 					case "Lorg/opalj/ai/test/invokedynamic/annotations/CallSites;":
 						CallSites callSites = (CallSites) aic.create(at);
-						
-						
+
 						for (CallSite callSite : callSites.value()) {
-							resolvedMethodLoop:
-							for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()){
+							resolvedMethodLoop: for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()) {
 								methods.removeAll(methodsToRemove);
 								for (SootMethod sootMethod : methods) {
 									boolean check = false;
-									for (CallGraphAlgorithm algo : resolvedMethod.containedInMax()){
-										if (cga.hasSmallerOrEqualPrecision(algo)){
+									for (CallGraphAlgorithm algo : resolvedMethod.containedInMax()) {
+										if (cga.hasSmallerOrEqualPrecision(algo)) {
 											check = true;
 											break;
 										}
@@ -128,23 +129,22 @@ public class CorrectCallgraphAnalysis {
 							}
 							methodsToRemove.clear();
 						}
-						
-						for (SootMethod sootMethod : methods){
+
+						for (SootMethod sootMethod : methods) {
 							method.addCall(new NotDeclaredMethodCalled(sootMethod));
 						}
 
 						break;
-						
+
 					case "Lorg/opalj/ai/test/invokedynamic/annotations/CallSite;":
 						CallSite callSite = (CallSite) aic.create(at);
-						
-						resolvedMethodLoop:
-						for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()){
+
+						resolvedMethodLoop: for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()) {
 							methods.removeAll(methodsToRemove);
 							for (SootMethod sootMethod : methods) {
 								boolean check = false;
-								for (CallGraphAlgorithm algo : resolvedMethod.containedInMax()){
-									if (cga.hasSmallerOrEqualPrecision(algo)){
+								for (CallGraphAlgorithm algo : resolvedMethod.containedInMax()) {
+									if (cga.hasSmallerOrEqualPrecision(algo)) {
 										check = true;
 										break;
 									}
@@ -158,11 +158,12 @@ public class CorrectCallgraphAnalysis {
 							method.addCall(new DeclaredMethodNotCalled(callSite, resolvedMethod));
 						}
 						methodsToRemove.clear();
-					
-					
-					for (SootMethod sootMethod : methods){
+
+						for (SootMethod sootMethod : methods) {
 							method.addCall(new NotDeclaredMethodCalled(sootMethod));
 						}
+						break;
+
 					default:
 						System.out.println("Unknown Annotation: " + at.getType());
 						break;

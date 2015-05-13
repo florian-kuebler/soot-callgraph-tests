@@ -7,8 +7,8 @@ import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
 import soot.SootMethod;
 import de.tud.cs.peaks.sootconfig.AnalysisTarget;
 import de.tud.cs.soot.callgraph.CorrectCallgraphAnalysis;
+import de.tud.cs.soot.callgraph.DefaultMethodMatcher;
 import de.tud.cs.soot.callgraph.IMethodMatcher;
-import de.tud.cs.soot.callgraph.NameAndRecieverMatcher;
 import de.tud.cs.soot.callgraph.result.DeclaredMethodCalled;
 import de.tud.cs.soot.callgraph.result.DeclaredMethodNotCalled;
 import de.tud.cs.soot.callgraph.result.NotDeclaredMethodCalled;
@@ -21,29 +21,26 @@ import de.tud.cs.soot.callgraph.targets.Targets;
 public class TestSuiteCreator {
 
 	public static TestSuite createTestSuite(CallGraphAlgorithm cga) {
-		System.out.println("Create TestSuite");
 		AnalysisTarget target = Targets.getDefaultTarget();
 
 		final TestSuite suite = new TestSuite("CallCraph Tests");
 
-		IMethodMatcher matcher = new NameAndRecieverMatcher();
+		IMethodMatcher matcher = new DefaultMethodMatcher();
 
 		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(cga, target, matcher);
 		
-		System.out.println("Perform Analysis");
 		Result result = cca.perform();
-		System.out.println("Analysis Done!");
 
 		for (ResultClass clazz : result.getClasses()) {
 			TestSuite classSuite = new TestSuite(clazz.getSootClass().toString());
 
 			for (ResultMethod method : clazz.getMethods()) {
 				SootMethod sootMethod = method.getSootMethod();
-				TestSuite methodSuite = new TestSuite(sootMethod.toString());
+				TestSuite methodSuite = new TestSuite(sootMethod.getName());
 				
 				for (ResultCall call : method.getCalls()) {
 					if (call instanceof DeclaredMethodCalled) {
-						DeclaredMethodCalled call2 = (DeclaredMethodCalled) call;						
+						DeclaredMethodCalled call2 = (DeclaredMethodCalled) call;					
 						methodSuite.addTest(new DeclaredMethodCalledTest(call2.getCallSite(), call2.getResolvedMethod()));;
 					} else if (call instanceof DeclaredMethodNotCalled) {
 						DeclaredMethodNotCalled call2 = (DeclaredMethodNotCalled) call;	

@@ -10,7 +10,7 @@ public class Main {
 	public static void main(String[] args) {
 		AnalysisTarget target = Targets.getDefaultTarget();
 		
-		IMethodMatcher matcher = new NameAndRecieverMatcher();
+		IMethodMatcher matcher = new DefaultMethodMatcher();
 		
 		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.CHA, target, matcher);
 		cca.perform();

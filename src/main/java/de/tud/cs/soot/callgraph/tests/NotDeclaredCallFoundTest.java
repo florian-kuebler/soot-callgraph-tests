@@ -10,7 +10,7 @@ public class NotDeclaredCallFoundTest extends AbstractNotDeclaredMethodTest {
 
 	@Override
 	protected void runTest() throws Throwable {
-		throw new Exception();
+		fail();
 	}
 
 }

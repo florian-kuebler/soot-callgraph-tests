@@ -28,7 +28,7 @@
  */
 package ai.domain;
 
-import scala.Int;
+//import scala.Int;
 
 /**
  * A class that does perform a large number of operations related to int values.
@@ -669,7 +669,7 @@ public class IntegerValuesFrenzy {
         else if (a == b)
             return (0);
 
-        doIt(Int.MaxValue());
+        doIt(Integer.MAX_VALUE);
 
         if (b > a) // <== "BUG"
             return (1);
