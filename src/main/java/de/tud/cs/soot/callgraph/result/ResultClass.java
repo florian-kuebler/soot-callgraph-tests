@@ -26,29 +26,8 @@ public class ResultClass {
 		methods.add(method);
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((sootClass == null) ? 0 : sootClass.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ResultClass other = (ResultClass) obj;
-		if (sootClass == null) {
-			if (other.sootClass != null)
-				return false;
-		} else if (!sootClass.equals(other.sootClass))
-			return false;
-		return true;
+	public void addMethods(Set<ResultMethod> methods) {
+		this.methods.addAll(methods);
 	}
 
 }

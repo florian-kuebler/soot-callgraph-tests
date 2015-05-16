@@ -26,4 +26,9 @@ public class ResultMethod {
 	public void addCall(ResultCall call) {
 		this.calls.add(call);
 	}
+
+	public void addCalls(Set<ResultCall> calls) {
+		this.calls.addAll(calls);
+		
+	}
 }

@@ -3,23 +3,23 @@ package de.tud.cs.soot.callgraph.result;
 import org.opalj.ai.test.invokedynamic.annotations.CallSite;
 import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
 
-import soot.SootMethod;
+import soot.jimple.toolkits.callgraph.Edge;
 
 public class DeclaredMethodCalled extends ResultCall {
 
-	private SootMethod callee;
+	private Edge callEdge;
 	private CallSite callSite;
 	private ResolvedMethod resolvedMethod;
 
-	public DeclaredMethodCalled(SootMethod callee, CallSite callSite,
+	public DeclaredMethodCalled(Edge callEdge, CallSite callSite,
 			ResolvedMethod resolvedMethod) {
-		this.callee = callee;
+		this.callEdge = callEdge;
 		this.callSite = callSite;
 		this.resolvedMethod = resolvedMethod;
 	}
 
-	public SootMethod getCallee() {
-		return callee;
+	public Edge getCallEdge() {
+		return callEdge;
 	}
 
 	public CallSite getCallSite() {

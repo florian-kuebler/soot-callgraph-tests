@@ -1,11 +1,11 @@
 package de.tud.cs.soot.callgraph.tests;
 
-import soot.SootMethod;
+import soot.jimple.toolkits.callgraph.Edge;
 
 public class NotDeclaredCallFoundTest extends AbstractNotDeclaredMethodTest {
 
-	public NotDeclaredCallFoundTest(SootMethod sootMethod) {
-		super(sootMethod);
+	public NotDeclaredCallFoundTest(Edge edge) {
+		super(edge);
 	}
 
 	@Override

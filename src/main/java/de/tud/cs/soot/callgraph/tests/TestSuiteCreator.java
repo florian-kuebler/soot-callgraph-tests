@@ -46,7 +46,7 @@ public class TestSuiteCreator {
 						DeclaredMethodNotCalled call2 = (DeclaredMethodNotCalled) call;	
 						methodSuite.addTest(new DeclaredCallNotFoundTest(call2.getCallSite(), call2.getResolvedMethod()));
 					} else if (call instanceof NotDeclaredMethodCalled) {
-						methodSuite.addTest(new NotDeclaredCallFoundTest(((NotDeclaredMethodCalled) call).getCallee()));
+						methodSuite.addTest(new NotDeclaredCallFoundTest(((NotDeclaredMethodCalled) call).getCallEdge())); //TODO
 					} else
 						throw new RuntimeException("Unexpected ResultCall: " + call);
 				}

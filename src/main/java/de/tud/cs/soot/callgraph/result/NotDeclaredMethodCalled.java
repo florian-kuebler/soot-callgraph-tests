@@ -1,17 +1,17 @@
 package de.tud.cs.soot.callgraph.result;
 
-import soot.SootMethod;
+import soot.jimple.toolkits.callgraph.Edge;
 
 public class NotDeclaredMethodCalled extends ResultCall {
 	
-	private SootMethod callee;
+	private Edge callEdge;
 
-	public NotDeclaredMethodCalled(SootMethod sootMethod) {
-		this.callee = sootMethod;
+	public NotDeclaredMethodCalled(Edge callEdge) {
+		this.callEdge = callEdge;
 	}
 
-	public SootMethod getCallee() {
-		return callee;
+	public Edge getCallEdge() {
+		return callEdge;
 	}
 
 	

@@ -1,25 +1,22 @@
 package de.tud.cs.soot.callgraph.tests;
 
+import java.util.Random;
+
 import junit.framework.TestCase;
-import soot.SootMethod;
+import soot.jimple.toolkits.callgraph.Edge;
 
 public abstract class AbstractNotDeclaredMethodTest extends TestCase {
 	
 
-	private SootMethod sootMethod;
+	private Edge callEdge;
 	
-	public AbstractNotDeclaredMethodTest(SootMethod method) {
-		super(method.toString());
-		this.sootMethod = method;
+	public AbstractNotDeclaredMethodTest(Edge callEdge) {
+		super(callEdge.srcStmt().getJavaSourceStartLineNumber() + ": " + callEdge.tgt()+new Random().nextFloat());
+		this.callEdge = callEdge;
 	}
 
-	public SootMethod getSootMethod() {
-		return sootMethod;
+	public Edge getCallEdge() {
+		return callEdge;
 	}
-
-
-	
-	
-	
 	
 }
