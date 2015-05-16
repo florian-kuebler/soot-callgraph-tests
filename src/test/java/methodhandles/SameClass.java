@@ -64,9 +64,9 @@ public class SameClass {
 	private static void noArgumentsPrivate() {/* empty */
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "noArgumentsPublic", isStatic = true, isReflective = true, line = 71)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "noArgumentsProtected", isStatic = true, isReflective = true, line = 73)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "noArgumentsPrivate", isStatic = true, isReflective = true, line = 75)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "noArgumentsPublic", isStatic = true, isReflective = true, line = 73)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "noArgumentsProtected", isStatic = true, isReflective = true, line = 75)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "noArgumentsPrivate", isStatic = true, isReflective = true, line = 77)
 	public void noArgumentsMethodHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class);
 		MethodHandle publicHandle = lookup.findStatic(SameClass.class, "noArgumentsPublic", voidType);
@@ -84,8 +84,8 @@ public class SameClass {
 		return i;
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "primitive", parameterTypes = { int.class }, isStatic = true, isReflective = true, line = 89)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "primitiveReturn", parameterTypes = { int.class }, returnType = int.class, isStatic = true, isReflective = true, line = 92)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "primitive", parameterTypes = { int.class }, isStatic = true, isReflective = true, line = 92)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "primitiveReturn", parameterTypes = { int.class }, returnType = int.class, isStatic = true, isReflective = true, line = 95)
 	public static void primitiveHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class, int.class);
 		MethodHandle voidHandle = lookup.findStatic(SameClass.class, "primitive", voidType);
@@ -102,8 +102,8 @@ public class SameClass {
 		return o;
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "object", parameterTypes = { Object.class }, isStatic = true, isReflective = true, line = 106)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "objectReturn", parameterTypes = { Object.class }, returnType = Object.class, isStatic = true, isReflective = true, line = 109)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "object", parameterTypes = { Object.class }, isStatic = true, isReflective = true, line = 110)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "objectReturn", parameterTypes = { Object.class }, returnType = Object.class, isStatic = true, isReflective = true, line = 113)
 	public static void objectHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class, Object.class);
 		MethodHandle voidHandle = lookup.findStatic(SameClass.class, "object", voidType);
@@ -120,8 +120,8 @@ public class SameClass {
 		return array;
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "array", parameterTypes = { int[].class }, isStatic = true, isReflective = true, line = 123)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "arrayReturn", parameterTypes = { int[].class }, returnType = int[].class, isStatic = true, isReflective = true, line = 126)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "array", parameterTypes = { int[].class }, isStatic = true, isReflective = true, line = 128)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameClass") }, name = "arrayReturn", parameterTypes = { int[].class }, returnType = int[].class, isStatic = true, isReflective = true, line = 131)
 	public static void arrayHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class, int[].class);
 		MethodHandle voidHandle = lookup.findStatic(SameClass.class, "array", voidType);

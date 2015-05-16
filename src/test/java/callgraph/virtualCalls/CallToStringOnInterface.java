@@ -73,22 +73,22 @@ public class CallToStringOnInterface {
         }
     };
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/SimpleBase" ) }, name = "toString", returnType = String.class, line = 77)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/SimpleBase" ) }, name = "toString", returnType = String.class, line = 78)
     void callToStringOnSimpleBase() {
         simpleBase.toString();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "toString", returnType = String.class, line = 82)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "toString", returnType = String.class, line = 83)
     void callToStringOnConcreteBase() {
         concreteBase.toString();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "toString", returnType = String.class, line = 87)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "toString", returnType = String.class, line = 88)
     void callToStringOnAlternateBase() {
         alternerateBase.toString();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "toString", returnType = String.class, line = 92)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "toString", returnType = String.class, line = 93)
     void callToStringOnAbstractBase() {
         abstractBase.toString();
     }

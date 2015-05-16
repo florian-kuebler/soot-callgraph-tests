@@ -28,10 +28,9 @@
  */
 package callgraph.accessFields;
 
-import org.opalj.ai.test.invokedynamic.annotations.AccessedField;
-
 import callgraph.base.AlternateBase;
 import callgraph.base.ConcreteBase;
+import org.opalj.ai.test.invokedynamic.annotations.AccessedField;
 
 /**
  * This class was used to create a class file with some well defined attributes. The

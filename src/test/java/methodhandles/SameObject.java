@@ -63,9 +63,9 @@ public class SameObject {
 	private void noArgumentsPrivate() {/* empty */
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "noArgumentsPublic", isReflective = true, line = 71)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "noArgumentsProtected", isReflective = true, line = 73)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "noArgumentsPrivate", isReflective = true, line = 75)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "noArgumentsPublic", isReflective = true, line = 72)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "noArgumentsProtected", isReflective = true, line = 74)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "noArgumentsPrivate", isReflective = true, line = 76)
 	public void noArgumentsMethodHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class);
 		MethodHandle publicHandle = lookup.findVirtual(SameObject.class, "noArgumentsPublic", voidType);
@@ -83,8 +83,8 @@ public class SameObject {
 		return i;
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "primitive", parameterTypes = { int.class }, isReflective = true, line = 89)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "primitiveReturn", parameterTypes = { int.class }, returnType = int.class, isReflective = true, line = 92)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "primitive", parameterTypes = { int.class }, isReflective = true, line = 91)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "primitiveReturn", parameterTypes = { int.class }, returnType = int.class, isReflective = true, line = 94)
 	public void primitiveHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class, int.class);
 		MethodHandle voidHandle = lookup.findVirtual(SameObject.class, "primitive", voidType);
@@ -101,8 +101,8 @@ public class SameObject {
 		return o;
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "object", parameterTypes = { Object.class }, isReflective = true, line = 106)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "objectReturn", parameterTypes = { Object.class }, returnType = Object.class, isReflective = true, line = 109)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "object", parameterTypes = { Object.class }, isReflective = true, line = 109)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "objectReturn", parameterTypes = { Object.class }, returnType = Object.class, isReflective = true, line = 112)
 	public void objectHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class, Object.class);
 		MethodHandle voidHandle = lookup.findVirtual(SameObject.class, "object", voidType);
@@ -119,8 +119,8 @@ public class SameObject {
 		return array;
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "array", parameterTypes = { int[].class }, isReflective = true, line = 123)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "arrayReturn", parameterTypes = { int[].class }, returnType = int[].class, isReflective = true, line = 126)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "array", parameterTypes = { int[].class }, isReflective = true, line = 127)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "methodhandles/SameObject") }, name = "arrayReturn", parameterTypes = { int[].class }, returnType = int[].class, isReflective = true, line = 130)
 	public void arrayHandles() throws Throwable {
 		MethodType voidType = MethodType.methodType(Void.class, int[].class);
 		MethodHandle voidHandle = lookup.findVirtual(SameObject.class, "array", voidType);

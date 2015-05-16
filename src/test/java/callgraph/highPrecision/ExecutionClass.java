@@ -67,14 +67,14 @@ public class ExecutionClass {
 		}
 	}
 
-	@CallSite(name = "interfaceMethod", line = 76, resolvedMethods = {
+	@CallSite(name = "interfaceMethod", line = 74, resolvedMethods = {
 			@ResolvedMethod(receiverType = "callgraph/highPrecision/ExecutionClass$InnerClass"),
 			@ResolvedMethod(receiverType = "callgraph/highPrecision/ConcreteClass", containedInMax = { CallGraphAlgorithm.BasicVTA }) })
 	public void testInnerClass() {
 		innerClass.interfaceMethod();
 	}
 
-	@CallSite(name = "interfaceMethod", line = 92, resolvedMethods = {
+	@CallSite(name = "interfaceMethod", line = 90, resolvedMethods = {
 			@ResolvedMethod(receiverType = "callgraph/highPrecision/ExecutionClass$1"),
 			@ResolvedMethod(receiverType = "callgraph/highPrecision/ConcreteClass", containedInMax = { CallGraphAlgorithm.CHA }),
 			@ResolvedMethod(receiverType = "callgraph/highPrecision/ExecutionClass$InnerClass", containedInMax = { CallGraphAlgorithm.CHA }) })

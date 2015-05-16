@@ -73,22 +73,22 @@ public class CallHashcodeOnInterface {
         }
     };
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/SimpleBase" ) }, name = "hashCode", returnType = Integer.class, line = 76)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/SimpleBase" ) }, name = "hashCode", returnType = Integer.class, line = 78)
     void callHashCodeOnSimpleBase() {
         simpleBase.hashCode();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "hashCode", returnType = Integer.class, line = 81)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "hashCode", returnType = Integer.class, line = 83)
     void callHashCodeOnConcreteBase() {
         concreteBase.hashCode();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "hashCode", returnType = Integer.class, line = 86)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "hashCode", returnType = Integer.class, line = 88)
     void callHashCodeOnAlternateBase() {
         alternerateBase.hashCode();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "hashCode", returnType = Integer.class, line = 91)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "java/lang/Object" ) }, name = "hashCode", returnType = Integer.class, line = 93)
     void callHashCodeOnAbstractBase() {
         abstractBase.hashCode();
     }

@@ -74,13 +74,13 @@ public class AlternateBase extends AbstractBase {
     }
 
     @Override
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/AbstractBase" ) }, name = "abstractImplementedMethod", line = 78)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/AbstractBase" ) }, name = "abstractImplementedMethod", line = 79)
     public void abstractMethod() {
         super.abstractImplementedMethod();
     }
 
     @Override
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/AbstractBase" ) }, name = "implementedMethod", line = 84)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/AbstractBase" ) }, name = "implementedMethod", line = 85)
     public void implementedMethod() {
         super.implementedMethod();
     }

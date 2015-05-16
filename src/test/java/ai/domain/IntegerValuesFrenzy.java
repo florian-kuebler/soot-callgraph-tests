@@ -28,7 +28,6 @@
  */
 package ai.domain;
 
-//import scala.Int;
 
 /**
  * A class that does perform a large number of operations related to int values.

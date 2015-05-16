@@ -245,10 +245,11 @@ public class TryCatchFinally {
 		}
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "createThrowable", line = 255)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 257)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "implementedMethod", line = 259)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "staticMethod", isStatic = true, line = 261)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "createThrowable", line = 254)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 256)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "implementedMethod", line = 268)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "staticMethod", isStatic = true, line = 260)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "staticMethod", isStatic = true, line = 262)
 	void callMethodBasedOnThrowableType() {
 		try {
 			throw createThrowable();
@@ -263,9 +264,11 @@ public class TryCatchFinally {
 		}
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "throwThrowablePartly", line = 273)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 275)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "implementedMethod", line = 277)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "throwThrowablePartly", line = 274)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 276)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "implementedMethod", line = 278)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "staticMethod", isStatic = true, line = 280)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "staticMethod", isStatic = true, line = 282)
 	void callMethodBasedOnThrowableTypePartly() {
 		try {
 			throwThrowablePartly();
@@ -292,9 +295,9 @@ public class TryCatchFinally {
 		}
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "canThrowNullPointerException", line = 304)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 306)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "staticMethod", isStatic = true, line = 307)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "canThrowNullPointerException", line = 303)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 305)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "staticMethod", isStatic = true, line = 306)
 	void possibleNullPointerExceptionCatchOtherExceptions(Object o) {
 		try {
 			canThrowNullPointerException(o);
@@ -306,8 +309,8 @@ public class TryCatchFinally {
 		}
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "alwaysThrowsCheckedException", line = 318)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "implementedMethod", isStatic = true, line = 320)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "alwaysThrowsCheckedException", line = 316)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/AlternateBase") }, name = "implementedMethod", isStatic = true, line = 318)
 	void callThrowCheckedException() {
 		try {
 			alwaysThrowsCheckedException();
@@ -316,10 +319,10 @@ public class TryCatchFinally {
 		}
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "mayThrowException", line = 331)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "alwaysThrowsException", line = 332)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 334)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 336)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "mayThrowException", line = 328)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "alwaysThrowsException", line = 329)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 331)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 333)
 	void callMultipleMethodsInTry(Object o) {
 		try {
 			mayThrowException();
@@ -331,9 +334,9 @@ public class TryCatchFinally {
 		}
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "alwaysThrowsException", line = 346)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "mayThrowException", line = 347)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 349)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "alwaysThrowsException", line = 342)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/misc/TryCatchFinally") }, name = "mayThrowException", line = 343)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "callgraph/base/SimpleBase") }, name = "implementedMethod", line = 345)
 	void callMultipleMethodsInTryAlternateOrder(Object o) {
 		try {
 			alwaysThrowsException();

@@ -59,22 +59,22 @@ public class A implements Base {
 	Base b = new B();
 
 	@Override
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnInstanceField", line = 65)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnInstanceField", line = 64)
 	public String callOnInstanceField() {
 		return b.callOnInstanceField();
 	}
 
 	@Override
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 72)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 71)
 	@InvokedConstructor(receiverType = "simpleCallgraph/B", line = 72)
 	public void callOnConstructor() {
 		new B().callOnConstructor();
 	}
 
 	@Override
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A") }, name = "callOnMethodParameter", line = 82)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A") }, name = "callOnMethodParameter", line = 80)
 	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A"),
-			@ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 83)
+			@ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 81)
 	public void callOnMethodParameter(Base b) {
 		if (b != null) {
 			this.callOnMethodParameter(null);
@@ -82,8 +82,8 @@ public class A implements Base {
 		}
 	}
 
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A") }, name = "callOnConstructor", line = 91)
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 92)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A") }, name = "callOnConstructor", line = 88)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 89)
 	public void directCallOnConstructor() {
 		new A().callOnConstructor();
 		new B().callOnConstructor();

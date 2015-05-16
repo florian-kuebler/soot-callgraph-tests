@@ -60,17 +60,17 @@ import callgraph.base.SimpleBase;
  */
 public class CallStaticMethods {
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/AbstractBase" ) }, name = "staticMethod", isStatic = true, line = 63)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/AbstractBase" ) }, name = "staticMethod", isStatic = true, line = 65)
     void callStaticAbstract() {
         AbstractBase.staticMethod();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/ConcreteBase" ) }, name = "staticMethod", isStatic = true, line = 68)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/ConcreteBase" ) }, name = "staticMethod", isStatic = true, line = 70)
     void callStaticConcrete() {
         ConcreteBase.staticMethod();
     }
 
-    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/SimpleBase" ) }, name = "staticMethod", isStatic = true, line = 73)
+    @CallSite(resolvedMethods = { @ResolvedMethod( receiverType = "callgraph/base/SimpleBase" ) }, name = "staticMethod", isStatic = true, line = 75)
     void callStaticSimple() {
         SimpleBase.staticMethod();
     }

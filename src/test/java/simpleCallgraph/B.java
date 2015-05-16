@@ -64,15 +64,15 @@ public class B implements Base {
 	}
 
 	@Override
-	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A") }, name = "callOnConstructor", line = 71)
-	@InvokedConstructor(receiverType = "simpleCallgraph/A", line = 71)
+	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A") }, name = "callOnConstructor", line = 70)
+	@InvokedConstructor(receiverType = "simpleCallgraph/A", line = 70)
 	public void callOnConstructor() {
 		new A().callOnConstructor();
 	}
 
 	@Override
 	@CallSite(resolvedMethods = { @ResolvedMethod(receiverType = "simpleCallgraph/A"),
-			@ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 79)
+			@ResolvedMethod(receiverType = "simpleCallgraph/B") }, name = "callOnConstructor", line = 77)
 	public void callOnMethodParameter(@SuppressWarnings("hiding") Base b) {
 		b.callOnConstructor();
 	}

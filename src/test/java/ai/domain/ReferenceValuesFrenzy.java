@@ -28,6 +28,7 @@
  */
 package ai.domain;
 
+import ai.domain.IntegerValuesFrenzy;
 
 /**
  * A class that does perform a large number of operations related to reference values.

@@ -29,11 +29,10 @@
  */
 package callgraph.constructors;
 
-import org.opalj.ai.test.invokedynamic.annotations.InvokedConstructor;
-
 import callgraph.base.AlternateBase;
 import callgraph.base.Base;
 import callgraph.base.ConcreteBase;
+import org.opalj.ai.test.invokedynamic.annotations.InvokedConstructor;
 
 /**
  * This class was used to create a class file with some well defined attributes. The
