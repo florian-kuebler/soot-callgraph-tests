@@ -3,6 +3,7 @@ package de.tud.cs.soot.callgraph.options;
 import de.tud.cs.peaks.sootconfig.CallGraphPhaseOptions;
 import de.tud.cs.peaks.sootconfig.FluentOptions;
 import de.tud.cs.peaks.sootconfig.JimpleBodyCreationPhaseOptions;
+import de.tud.cs.peaks.sootconfig.SparkOptions;
 import de.tud.cs.peaks.sootconfig.TagAggregatorOptions;
 
 public class Options {
@@ -47,6 +48,17 @@ public class Options {
 
 		options.addPhaseOptions(cg);
 
+		return options;
+	}
+	
+	public static FluentOptions getSPARKFluentOptions() {
+		FluentOptions options = getBasicFluentOptions();
+		
+		CallGraphPhaseOptions cg = new CallGraphPhaseOptions().processAllReachable();
+		cg.addSubOption(new SparkOptions().enable());
+		
+		options.addPhaseOptions(cg);
+		
 		return options;
 	}
 }

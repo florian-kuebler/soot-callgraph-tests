@@ -1,6 +1,5 @@
 package de.tud.cs.soot.callgraph;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -50,6 +49,12 @@ public class CorrectCallgraphAnalysis {
 		case BasicVTA:
 			this.options = Options.getVTAFluentOptions();
 			break;
+		case SPARK:
+			this.options = Options.getSPARKFluentOptions();
+			break;
+		case RTA:
+			this.options = Options.getRTAFluentOptions();
+			break;
 
 		default:
 			throw new RuntimeException("CallGraphAlgorithm: " + cga.name() + " is not yet implemented");
@@ -71,7 +76,6 @@ public class CorrectCallgraphAnalysis {
 
 		for (SootClass sc : scene.getApplicationClasses()) {
 			Set<ResultMethod> methods = checkClass(scene, sc);
-
 			if (!methods.isEmpty()) {
 				ResultClass clazz = new ResultClass(sc);
 				clazz.addMethods(methods);
@@ -113,8 +117,9 @@ public class CorrectCallgraphAnalysis {
 					String calleeName = edge.tgt().getName();
 
 					// calls to constructors are not interesting
-					if (!calleeName.equals("<clinit>") && !calleeName.equals("<init>"))
+					if (!calleeName.equals("<clinit>") && !calleeName.equals("<init>")) {
 						edges.add(edge);
+					}
 				}
 
 				for (AnnotationTag at : vat.getAnnotations()) {
@@ -153,7 +158,7 @@ public class CorrectCallgraphAnalysis {
 	private Set<ResultCall> handleCallSite(CallSite callSite, Set<Edge> edges) {
 		Set<ResultCall> results = new HashSet<>();
 		Set<Edge> edgesToRemove = new HashSet<>();
-		resolvedMethodLoop: for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()) {
+		for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()) {
 			edges.removeAll(edgesToRemove);
 			for (Edge edge : edges) {
 				SootMethod callee = edge.tgt();
@@ -167,12 +172,15 @@ public class CorrectCallgraphAnalysis {
 				if (check && matcher.match(callee, callSite, resolvedMethod)) {
 					results.add(new DeclaredMethodCalled(edge, callSite, resolvedMethod));
 					edgesToRemove.add(edge);
-					continue resolvedMethodLoop;
+					break;
 				}
 			}
-			results.add(new DeclaredMethodNotCalled(callSite, resolvedMethod));
+			if (edgesToRemove.isEmpty()) {
+				results.add(new DeclaredMethodNotCalled(callSite, resolvedMethod));
+			}
+			edges.removeAll(edgesToRemove);
+			edgesToRemove.clear();
 		}
-		edgesToRemove.clear();
 		return results;
 	}
 }
