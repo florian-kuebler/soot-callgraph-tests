@@ -33,7 +33,7 @@ public class Options {
 		FluentOptions options = getBasicFluentOptions();
 
 		CallGraphPhaseOptions cg = new CallGraphPhaseOptions().processAllReachable();
-		cg.addSubOption(new VTAOptions().enableVTA()/* .disableVerboseMode() */);
+		cg.addSubOption(new VTAOptions().enableVTA().enable()/* .disableVerboseMode() */);
 
 		options.addPhaseOptions(cg);
 
