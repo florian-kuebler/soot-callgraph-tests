@@ -65,6 +65,8 @@ public class CorrectCallgraphAnalysis {
 		SootRun run = new SootRun(options, target);
 
 		System.out.println("Starting Soot with target: " + target);
+		System.out.println(options);
+		
 		SootResult res = run.perform();
 		System.out.println("Soot finished: " + res.totalSootRuntime());
 		Scene scene = res.getScene();
@@ -159,7 +161,6 @@ public class CorrectCallgraphAnalysis {
 		Set<ResultCall> results = new HashSet<>();
 		Set<Edge> edgesToRemove = new HashSet<>();
 		for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()) {
-			edges.removeAll(edgesToRemove);
 			for (Edge edge : edges) {
 				SootMethod callee = edge.tgt();
 				boolean check = false;
