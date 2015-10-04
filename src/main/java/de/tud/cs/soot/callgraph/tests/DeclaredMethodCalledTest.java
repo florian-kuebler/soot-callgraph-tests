@@ -5,8 +5,8 @@ import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
 
 public class DeclaredMethodCalledTest extends AbstractDeclaredMethodTest {
 
-	public DeclaredMethodCalledTest( CallSite callSite, ResolvedMethod resolvedMethod) {
-		super(callSite, resolvedMethod);
+	public DeclaredMethodCalledTest( CallSite callSite, ResolvedMethod resolvedMethod, String caller) {
+		super(callSite, resolvedMethod, caller);
 	}
 
 	@Override

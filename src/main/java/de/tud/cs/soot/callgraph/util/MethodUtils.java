@@ -16,7 +16,7 @@ public class MethodUtils {
 		if (callSite == null || resolvedMethod == null) {
 			throw new RuntimeException();
 		}
-		StringBuilder sb = new StringBuilder("<");
+		StringBuilder sb = new StringBuilder();
 		sb.append(resolvedMethod.receiverType().replace('/', '.'));
 		sb.append(": ");
 		sb.append(callSite.returnType().getName());
@@ -32,7 +32,7 @@ public class MethodUtils {
 			}
 		}
 
-		sb.append(")>");
+		sb.append(")");
 
 		return sb.toString();
 	}

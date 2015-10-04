@@ -9,7 +9,7 @@ public abstract class AbstractNotDeclaredMethodTest extends TestCase {
 	private Edge callEdge;
 	
 	public AbstractNotDeclaredMethodTest(Edge callEdge) {
-		super(callEdge.srcStmt().getJavaSourceStartLineNumber() + ": " + callEdge.tgt());
+		super(callEdge.srcStmt().getJavaSourceStartLineNumber() + ": " + callEdge.src().getName() + " -> " +  callEdge.tgt().toString().replaceAll("<|>", ""));
 		this.callEdge = callEdge;
 	}
 

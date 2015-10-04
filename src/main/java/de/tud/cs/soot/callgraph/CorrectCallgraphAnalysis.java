@@ -8,6 +8,7 @@ import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
 import org.opalj.ai.test.invokedynamic.annotations.CallSite;
 import org.opalj.ai.test.invokedynamic.annotations.CallSites;
 import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
+import org.opalj.ai.test.invokedynamic.annotations.ResolvingCondition;
 
 import soot.Scene;
 import soot.SootClass;
@@ -34,6 +35,8 @@ public class CorrectCallgraphAnalysis {
 	private FluentOptions options;
 	private AnalysisTarget target;
 	private CallGraphAlgorithm cga;
+	private boolean libraryAnalysis = true;
+	private boolean nameResolution = true;
 	private IMethodMatcher matcher;
 	private AnnotationInstanceCreator aic;
 
@@ -161,24 +164,31 @@ public class CorrectCallgraphAnalysis {
 		Set<ResultCall> results = new HashSet<>();
 		Set<Edge> edgesToRemove = new HashSet<>();
 		for (ResolvedMethod resolvedMethod : callSite.resolvedMethods()) {
-			for (Edge edge : edges) {
-				SootMethod callee = edge.tgt();
-				boolean check = false;
-				for (CallGraphAlgorithm algo : resolvedMethod.containedInMax()) {
-					if (cga.hasSmallerOrEqualPrecision(algo)) {
+			boolean check = false;
+			for (ResolvingCondition cond : resolvedMethod.iff()) {
+				CallGraphAlgorithm algo = cond.containedInMax();
+				if (cga.hasSmallerOrEqualPrecision(algo)) {
+					if ((libraryAnalysis || !cond.onlyOnLibrary()) && (nameResolution || !cond.onlyOnNameResolution())) {
 						check = true;
 						break;
 					}
 				}
-				if (check && matcher.match(callee, callSite, resolvedMethod)) {
-					results.add(new DeclaredMethodCalled(edge, callSite, resolvedMethod));
-					edgesToRemove.add(edge);
-					break;
+			}
+			
+			if (check) {				
+				for (Edge edge : edges) {
+					SootMethod callee = edge.tgt();
+					if (matcher.match(callee, callSite, resolvedMethod)) {
+						results.add(new DeclaredMethodCalled(edge, callSite, resolvedMethod));
+						edgesToRemove.add(edge);
+						break;
+					}
+				}
+				if (edgesToRemove.isEmpty()) {
+					results.add(new DeclaredMethodNotCalled(callSite, resolvedMethod));
 				}
 			}
-			if (edgesToRemove.isEmpty()) {
-				results.add(new DeclaredMethodNotCalled(callSite, resolvedMethod));
-			}
+			
 			edges.removeAll(edgesToRemove);
 			edgesToRemove.clear();
 		}

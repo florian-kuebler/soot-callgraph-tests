@@ -75,7 +75,7 @@ public class NativeMethods {
 			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
 	})
 	@CallSite(name = "getNativeArray", resolvedMethods = {@ResolvedMethod(receiverType = "callgraph/library/NativeMethods")})
-	private void callOnNativeResultArray() {
+	public void callOnNativeResultArray() {
 		IBase[] ibase = getNativeArray();
 		ibase[0].changeSth();
 		
