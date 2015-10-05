@@ -44,7 +44,7 @@ public class Arrays {
 	@CallSite(name = "changeSth", resolvedMethods = {
 			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass"),
 			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation"),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(containedInMax = RTA) }),
 			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(containedInMax = CHA) }),
 			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(containedInMax = CHA) }),
 			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(containedInMax = RTA) }),
