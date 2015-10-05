@@ -1,5 +1,7 @@
 package de.tud.cs.soot.callgraph.options;
 
+import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
+import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode;
 import de.tud.cs.peaks.sootconfig.CallGraphPhaseOptions;
 import de.tud.cs.peaks.sootconfig.FluentOptions;
 import de.tud.cs.peaks.sootconfig.JimpleBodyCreationPhaseOptions;
@@ -10,52 +12,46 @@ public class Options {
 
 	private static FluentOptions getBasicFluentOptions() {
 		FluentOptions options = new FluentOptions().keepLineNumbers().fullResolver().noBodiesForExcluded()
-				.allowPhantomReferences().wholeProgramAnalysis().outputFormat("none").prependClasspath()
+				.allowPhantomReferences().wholeProgramAnalysis().outputFormat("jimple").prependClasspath()
 				.addPhaseOptions(new JimpleBodyCreationPhaseOptions().useOriginalNames())
 				.addPhaseOptions(new TagAggregatorOptions().aggregateLineNumber());
 
 		return options;
 	}
-
-	public static FluentOptions getCHAFluentOptions() {
-		FluentOptions options = getBasicFluentOptions();
-
-		CallGraphPhaseOptions cg = new CallGraphPhaseOptions().processAllReachable();
-		ChaOptions cgCha = new ChaOptions().enable().enableVerboseMode();
-		cg.addSubOption(cgCha);
-
-		options.addPhaseOptions(cg);
-
-		return options;
-	}
-
-	public static FluentOptions getVTAFluentOptions() {
-		FluentOptions options = getBasicFluentOptions();
-
-		CallGraphPhaseOptions cg = new CallGraphPhaseOptions().processAllReachable();
-		cg.addSubOption(new VTAOptions().enableVTA().enable()/* .disableVerboseMode() */);
-
-		options.addPhaseOptions(cg);
-
-		return options;
-	}
-
-	public static FluentOptions getRTAFluentOptions() {
-		FluentOptions options = getBasicFluentOptions();
-
-		CallGraphPhaseOptions cg = new CallGraphPhaseOptions().processAllReachable();
-		cg.addSubOption(new RTAOptions().enableRTA()/* .disableVerboseMode() */);
-
-		options.addPhaseOptions(cg);
-
-		return options;
-	}
 	
-	public static FluentOptions getSPARKFluentOptions() {
+	public static FluentOptions getFluentOptions(CallGraphAlgorithm cga, CallGraphAlgorithmMode mode) {
 		FluentOptions options = getBasicFluentOptions();
 		
 		CallGraphPhaseOptions cg = new CallGraphPhaseOptions().processAllReachable();
-		cg.addSubOption(new SparkOptions().enable());
+		
+		switch (mode) {
+		case Application:
+			cg.applicationMode();
+			break;
+		case Library:
+			cg.libraryMode();
+			break;
+		case LibraryWithNameResolution:
+			cg.libraryModeWithNameResolution();
+			break;
+		}
+		
+		switch (cga) {
+		case CHA:
+			cg.addSubOption(new ChaOptions().enable());
+			break;
+		case BasicVTA:
+			cg.addSubOption(new VTAOptions().enableVTA());
+			break;
+		case SPARK:
+			cg.addSubOption(new SparkOptions().enable());
+			break;
+		case RTA:
+			cg.addSubOption(new RTAOptions().enableRTA());
+			break;
+		default:
+			throw new RuntimeException("CallGraphAlgorithm: " + cga.name() + " is not yet implemented");
+		}
 		
 		options.addPhaseOptions(cg);
 		

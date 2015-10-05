@@ -13,6 +13,7 @@ public class RTAOptions extends SparkOptions {
 	
 	public RTAOptions enableRTA() {
 		this.enabled = true;
+		enable();
 		return this;
 	}
 

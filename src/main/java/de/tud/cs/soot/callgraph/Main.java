@@ -1,9 +1,13 @@
 package de.tud.cs.soot.callgraph;
 
+import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm.BasicVTA;
+import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm.CHA;
+import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm.RTA;
+import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm.SPARK;
+import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode.Library;
+
 import java.io.File;
 import java.io.IOException;
-
-import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
 
 import de.tud.cs.peaks.sootconfig.AnalysisTarget;
 import de.tud.cs.soot.callgraph.result.Result;
@@ -15,26 +19,25 @@ public class Main {
 		AnalysisTarget target = Targets.getDefaultTarget();
 		
 		IMethodMatcher matcher = new DefaultMethodMatcher();
-		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.CHA, target, matcher);
+		CorrectCallgraphAnalysis cca = new CorrectCallgraphAnalysis(CHA, Library, target, matcher);
 		Result result = cca.perform();
-		CSVResultTraverser traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "cha.csv");
-		traverser.traverse(result);
+		CSVResultTraverser traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "cha-lib.csv");
+		traverser.traverse(result, 0);
 		
-		
-		cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.BasicVTA, target, matcher);
+		cca = new CorrectCallgraphAnalysis(BasicVTA, Library, target, matcher);
 		result = cca.perform();
-		traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "vta.csv");
-		traverser.traverse(result);
+		traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "vta-lib.csv");
+		traverser.traverse(result, 0);
 		
-		cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.RTA, target, matcher);
+		cca = new CorrectCallgraphAnalysis(RTA, Library, target, matcher);
 		result = cca.perform();
-		traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "rta.csv");
-		traverser.traverse(result);
+		traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "rta-lib.csv");
+		traverser.traverse(result, 0);
 		
-		cca = new CorrectCallgraphAnalysis(CallGraphAlgorithm.SPARK, target, matcher);
+		cca = new CorrectCallgraphAnalysis(SPARK, Library, target, matcher);
 		result = cca.perform();
-		traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "spark.csv");
-		traverser.traverse(result);
+		traverser = new CSVResultTraverser("." + File.separator + "results"  + File.separator + "spark-lib.csv");
+		traverser.traverse(result, 0);
 	}
 
 }

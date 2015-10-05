@@ -12,8 +12,8 @@ public abstract class AbstractDeclaredMethodTest extends TestCase {
 	private CallSite callSite;
 	private ResolvedMethod resolvedMethod;
 	
-	public AbstractDeclaredMethodTest(CallSite callSite, ResolvedMethod resolvedMethod, String caller) {
-		super(callSite.line() + ": " +caller + " -> " + MethodUtils.toSootMethodStyle(callSite, resolvedMethod));
+	public AbstractDeclaredMethodTest(CallSite callSite, ResolvedMethod resolvedMethod, String caller, int index) {
+		super(callSite.line() + ": " +caller + " -> " + MethodUtils.toSootMethodStyle(callSite, resolvedMethod) + " (" + index + ")");
 		this.callSite = callSite;
 		this.resolvedMethod = resolvedMethod;
 	}

@@ -1,15 +1,20 @@
 package de.tud.cs.soot.callgraph;
 
+import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode.*;
+
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
+import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode;
 import org.opalj.ai.test.invokedynamic.annotations.CallSite;
 import org.opalj.ai.test.invokedynamic.annotations.CallSites;
 import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
 import org.opalj.ai.test.invokedynamic.annotations.ResolvingCondition;
 
+import callgraph.library.Arrays;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;
@@ -35,33 +40,18 @@ public class CorrectCallgraphAnalysis {
 	private FluentOptions options;
 	private AnalysisTarget target;
 	private CallGraphAlgorithm cga;
-	private boolean libraryAnalysis = true;
-	private boolean nameResolution = true;
+	private CallGraphAlgorithmMode mode = CallGraphAlgorithmMode.Library;
 	private IMethodMatcher matcher;
 	private AnnotationInstanceCreator aic;
 
-	public CorrectCallgraphAnalysis(CallGraphAlgorithm cga, AnalysisTarget target, IMethodMatcher matcher) {
+	public CorrectCallgraphAnalysis(CallGraphAlgorithm cga, CallGraphAlgorithmMode mode, AnalysisTarget target,
+			IMethodMatcher matcher) {
 		this.target = target;
 		this.cga = cga;
+		this.mode = mode;
 		this.aic = new AnnotationInstanceCreator();
 		this.matcher = matcher;
-		switch (cga) {
-		case CHA:
-			this.options = Options.getCHAFluentOptions();
-			break;
-		case BasicVTA:
-			this.options = Options.getVTAFluentOptions();
-			break;
-		case SPARK:
-			this.options = Options.getSPARKFluentOptions();
-			break;
-		case RTA:
-			this.options = Options.getRTAFluentOptions();
-			break;
-
-		default:
-			throw new RuntimeException("CallGraphAlgorithm: " + cga.name() + " is not yet implemented");
-		}
+		this.options = Options.getFluentOptions(cga, mode);
 	}
 
 	public Result perform() {
@@ -69,7 +59,7 @@ public class CorrectCallgraphAnalysis {
 
 		System.out.println("Starting Soot with target: " + target);
 		System.out.println(options);
-		
+
 		SootResult res = run.perform();
 		System.out.println("Soot finished: " + res.totalSootRuntime());
 		Scene scene = res.getScene();
@@ -168,14 +158,14 @@ public class CorrectCallgraphAnalysis {
 			for (ResolvingCondition cond : resolvedMethod.iff()) {
 				CallGraphAlgorithm algo = cond.containedInMax();
 				if (cga.hasSmallerOrEqualPrecision(algo)) {
-					if ((libraryAnalysis || !cond.onlyOnLibrary()) && (nameResolution || !cond.onlyOnNameResolution())) {
+					if (mode == LibraryWithNameResolution || (mode == Library && !(cond.mode() == LibraryWithNameResolution)) || cond.mode() == Application)  {
 						check = true;
 						break;
 					}
 				}
 			}
-			
-			if (check) {				
+
+			if (check) {
 				for (Edge edge : edges) {
 					SootMethod callee = edge.tgt();
 					if (matcher.match(callee, callSite, resolvedMethod)) {
@@ -188,7 +178,7 @@ public class CorrectCallgraphAnalysis {
 					results.add(new DeclaredMethodNotCalled(callSite, resolvedMethod));
 				}
 			}
-			
+
 			edges.removeAll(edgesToRemove);
 			edgesToRemove.clear();
 		}

@@ -30,7 +30,7 @@ public class CSVResultTraverser implements IResultTraverser {
 	}
 
 	@Override
-	public void traverse(Result result) {
+	public void traverse(Result result, int index) {
 		try {
 			fileWriter.append("Class;Caller;Callee;Declared;Called");
 			fileWriter.append(LINE_SEPERATOR);

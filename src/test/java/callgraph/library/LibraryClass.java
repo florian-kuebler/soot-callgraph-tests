@@ -1,6 +1,8 @@
 package callgraph.library;
 
+import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode.*;
 import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm.*;
+
 import org.opalj.ai.test.invokedynamic.annotations.CallSite;
 import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
 import org.opalj.ai.test.invokedynamic.annotations.ResolvingCondition;
@@ -102,106 +104,132 @@ public class LibraryClass {
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public static void callOnArgBase(IBase arg) {
 		arg.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public static void callOnArgAbstract(AbstractBase arg) {
 		arg.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public static void callOnArgConcrete(ConcreteClass arg) {
 		arg.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public static void callOnArgConcreteImplementation(ConcreteImplementation arg) {
 		arg.changeSth();
 	}
-	
+
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public static void callOnArgInnerClass(InnerClass arg) {
 		arg.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public static void callOnArgInnerImplementation(InnerImplementation arg) {
 		arg.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1"),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldBase() {
 		if (ibase != null)
 			ibase.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass"),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = LibraryWithNameResolution), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = LibraryWithNameResolution), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = {
+					@ResolvingCondition(mode = LibraryWithNameResolution), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = LibraryWithNameResolution), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldAbstract() {
 		if (onlyAbstractBase != null)
 			onlyAbstractBase.changeSth();
@@ -209,104 +237,140 @@ public class LibraryClass {
 
 	@CallSite(name = "changeSth", resolvedMethods = {
 			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation"),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true, containedInMax = RTA) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true, containedInMax = RTA) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, containedInMax = RTA) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, containedInMax = RTA) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, containedInMax = RTA) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, containedInMax = RTA) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true, containedInMax = RTA) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library, containedInMax = RTA),
+					@ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library, containedInMax = RTA),
+					@ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library, containedInMax = CHA),
+					@ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library, containedInMax = RTA),
+					@ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = Library, containedInMax = CHA),
+					@ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = {
+					@ResolvingCondition(mode = Library, containedInMax = RTA),
+					@ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution, containedInMax = RTA) }), })
 	public void callOnFieldUnmodifiable() {
 		if (unmodifiableIBase != null)
 			unmodifiableIBase.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass"),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldConcrete() {
 		cclass.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass"),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldInnerClass() {
 		iclass.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })public void callOnFieldInnerImplementation() {
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation"),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
+	public void callOnFieldInnerImplementation() {
 		iimpl.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldPublicIBase() {
 		publicIBase.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass"),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldPublicAbstractBase() {
 		abase.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldProtectedIBase() {
 		protectedIBase.changeSth();
 	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = { @ResolvingCondition(onlyOnLibrary = true) }),
-			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(onlyOnLibrary = true, onlyOnNameResolution = true) }), })
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
 	public void callOnFieldStaticIBase() {
 		staticIBase.changeSth();
 	}

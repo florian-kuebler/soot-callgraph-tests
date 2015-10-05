@@ -19,7 +19,7 @@ public class TestResultTraverser implements IResultTraverser {
 	}
 
 	@Override
-	public void traverse(Result result) {
+	public void traverse(Result result, int index) {
 		for (ResultClass clazz : result.getClasses()) {
 			TestSuite classSuite = new TestSuite(clazz.getSootClass().toString());
 
@@ -29,12 +29,12 @@ public class TestResultTraverser implements IResultTraverser {
 					for (ResultCall call : method.getCalls()) {
 					if (call instanceof DeclaredMethodCalled) {
 						DeclaredMethodCalled call2 = (DeclaredMethodCalled) call;					
-						methodSuite.addTest(new DeclaredMethodCalledTest(call2.getCallSite(), call2.getResolvedMethod(), methodName));;
+						methodSuite.addTest(new DeclaredMethodCalledTest(call2.getCallSite(), call2.getResolvedMethod(), methodName, index));;
 					} else if (call instanceof DeclaredMethodNotCalled) {
 						DeclaredMethodNotCalled call2 = (DeclaredMethodNotCalled) call;	
-						methodSuite.addTest(new DeclaredCallNotFoundTest(call2.getCallSite(), call2.getResolvedMethod(), methodName));
+						methodSuite.addTest(new DeclaredCallNotFoundTest(call2.getCallSite(), call2.getResolvedMethod(), methodName, index));
 					} else if (call instanceof NotDeclaredMethodCalled) {
-						methodSuite.addTest(new NotDeclaredCallFoundTest(((NotDeclaredMethodCalled) call).getCallEdge()));
+						methodSuite.addTest(new NotDeclaredCallFoundTest(((NotDeclaredMethodCalled) call).getCallEdge(), index));
 					} else
 						throw new RuntimeException("Unexpected ResultCall: " + call);
 				}

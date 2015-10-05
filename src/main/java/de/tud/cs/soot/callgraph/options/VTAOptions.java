@@ -12,6 +12,7 @@ public class VTAOptions extends SparkOptions {
 	}
 	
 	public VTAOptions enableVTA() {
+		this.enable(); // also enable SPARK
 		this.enabled = true;
 		return this;
 	}
