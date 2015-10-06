@@ -194,6 +194,28 @@ public class LibraryClass {
 	public static void callOnArgInnerImplementation(InnerImplementation arg) {
 		arg.changeSth();
 	}
+	
+	@CallSite(name = "changeSth", resolvedMethods = {
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedClass", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/ConcreteImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/LibraryClass$InnerImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/NeverInstantiatedImplementation", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = CHA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1", iff = {
+					@ResolvingCondition(mode = Library), @ResolvingCondition(containedInMax = RTA) }),
+			@ResolvedMethod(receiverType = "callgraph/library/base2/PossibleOverridingClass", iff = { @ResolvingCondition(mode = LibraryWithNameResolution) }), })
+	public static void callOnArgArray(IBase[] array) {
+		if (array.length > 0) {
+			array[0].changeSth();
+		}
+	}
 
 	@CallSite(name = "changeSth", resolvedMethods = {
 			@ResolvedMethod(receiverType = "callgraph/library/base/BaseProvider$1"),
