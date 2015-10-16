@@ -2,8 +2,8 @@ package de.tud.cs.soot.callgraph.tests;
 
 import junit.framework.TestSuite;
 
-import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
-import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode;
+import org.opalj.test.annotations.CallGraphAlgorithm;
+import org.opalj.test.annotations.CallGraphAlgorithmMode;
 
 import de.tud.cs.peaks.sootconfig.AnalysisTarget;
 import de.tud.cs.soot.callgraph.CorrectCallgraphAnalysis;

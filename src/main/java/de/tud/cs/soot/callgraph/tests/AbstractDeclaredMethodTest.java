@@ -2,8 +2,8 @@ package de.tud.cs.soot.callgraph.tests;
 
 import junit.framework.TestCase;
 
-import org.opalj.ai.test.invokedynamic.annotations.CallSite;
-import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
+import org.opalj.test.annotations.CallSite;
+import org.opalj.test.annotations.ResolvedMethod;
 
 import de.tud.cs.soot.callgraph.util.MethodUtils;
 

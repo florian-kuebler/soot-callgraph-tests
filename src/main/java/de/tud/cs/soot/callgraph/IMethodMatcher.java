@@ -1,7 +1,7 @@
 package de.tud.cs.soot.callgraph;
 
-import org.opalj.ai.test.invokedynamic.annotations.CallSite;
-import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
+import org.opalj.test.annotations.CallSite;
+import org.opalj.test.annotations.ResolvedMethod;
 
 import soot.SootMethod;
 

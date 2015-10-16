@@ -7,7 +7,7 @@ public class Targets {
 	public static AnalysisTarget getDefaultTarget() {
 		AnalysisTarget target = new AnalysisTarget();
 
-		target.processPath("./target/test-classes/");
+		target.processPath("./../jcg/target/scala-2.10/classes/");
 		target.setEntryPointCalculator(new AllConcreteMethodsEP());		
 		return target;
 	}

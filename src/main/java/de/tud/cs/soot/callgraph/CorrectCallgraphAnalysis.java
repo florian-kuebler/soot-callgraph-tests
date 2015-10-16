@@ -1,18 +1,18 @@
 package de.tud.cs.soot.callgraph;
 
-import static org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode.*;
+import static org.opalj.test.annotations.CallGraphAlgorithmMode.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithm;
-import org.opalj.ai.test.invokedynamic.annotations.CallGraphAlgorithmMode;
-import org.opalj.ai.test.invokedynamic.annotations.CallSite;
-import org.opalj.ai.test.invokedynamic.annotations.CallSites;
-import org.opalj.ai.test.invokedynamic.annotations.ResolvedMethod;
-import org.opalj.ai.test.invokedynamic.annotations.ResolvingCondition;
+import org.opalj.test.annotations.CallGraphAlgorithm;
+import org.opalj.test.annotations.CallGraphAlgorithmMode;
+import org.opalj.test.annotations.CallSite;
+import org.opalj.test.annotations.CallSites;
+import org.opalj.test.annotations.ResolvedMethod;
+import org.opalj.test.annotations.ResolvingCondition;
 
 import callgraph.library.Arrays;
 import soot.Scene;
@@ -120,7 +120,7 @@ public class CorrectCallgraphAnalysis {
 				for (AnnotationTag at : vat.getAnnotations()) {
 					switch (at.getType()) {
 
-					case "Lorg/opalj/ai/test/invokedynamic/annotations/CallSites;":
+					case "Lorg/opalj/test/annotations/CallSites;":
 						CallSites callSites = (CallSites) aic.create(at);
 
 						for (CallSite callSite : callSites.value()) {
@@ -129,7 +129,7 @@ public class CorrectCallgraphAnalysis {
 
 						break;
 
-					case "Lorg/opalj/ai/test/invokedynamic/annotations/CallSite;":
+					case "Lorg/opalj/test/annotations/CallSite;":
 						CallSite callSite = (CallSite) aic.create(at);
 
 						results.addAll(handleCallSite(callSite, edges));
