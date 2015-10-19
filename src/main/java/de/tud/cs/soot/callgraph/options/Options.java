@@ -12,7 +12,7 @@ public class Options {
 
 	private static FluentOptions getBasicFluentOptions() {
 		FluentOptions options = new FluentOptions().keepLineNumbers().fullResolver().noBodiesForExcluded()
-				.allowPhantomReferences().wholeProgramAnalysis().outputFormat("jimple").prependClasspath()
+				.allowPhantomReferences().wholeProgramAnalysis().prependClasspath()
 				.addPhaseOptions(new JimpleBodyCreationPhaseOptions().useOriginalNames())
 				.addPhaseOptions(new TagAggregatorOptions().aggregateLineNumber());
 
@@ -32,7 +32,7 @@ public class Options {
 			cg.libraryMode();
 			break;
 		case LibraryWithNameResolution:
-			cg.libraryModeWithNameResolution();
+			cg.libraryModeSignatureResolution();
 			break;
 		}
 		
