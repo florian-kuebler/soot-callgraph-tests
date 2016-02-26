@@ -1,7 +1,7 @@
 package de.tud.cs.soot.callgraph.result;
 
-import org.opalj.test.annotations.CallSite;
-import org.opalj.test.annotations.ResolvedMethod;
+import org.opalj.annotations.callgraph.CallSite;
+import org.opalj.annotations.callgraph.ResolvedMethod;
 
 import soot.jimple.toolkits.callgraph.Edge;
 

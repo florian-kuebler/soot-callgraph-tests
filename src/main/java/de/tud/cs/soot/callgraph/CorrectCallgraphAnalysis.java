@@ -1,20 +1,18 @@
 package de.tud.cs.soot.callgraph;
 
-import static org.opalj.test.annotations.CallGraphAlgorithmMode.*;
+import static org.opalj.annotations.callgraph.CallGraphAlgorithmMode.*;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
-import org.opalj.test.annotations.CallGraphAlgorithm;
-import org.opalj.test.annotations.CallGraphAlgorithmMode;
-import org.opalj.test.annotations.CallSite;
-import org.opalj.test.annotations.CallSites;
-import org.opalj.test.annotations.ResolvedMethod;
-import org.opalj.test.annotations.ResolvingCondition;
+import org.opalj.annotations.callgraph.CallGraphAlgorithm;
+import org.opalj.annotations.callgraph.CallGraphAlgorithmMode;
+import org.opalj.annotations.callgraph.CallSite;
+import org.opalj.annotations.callgraph.CallSites;
+import org.opalj.annotations.callgraph.ResolvedMethod;
+import org.opalj.annotations.callgraph.ResolvingCondition;
 
-import callgraph.library.Arrays;
 import soot.Scene;
 import soot.SootClass;
 import soot.SootMethod;

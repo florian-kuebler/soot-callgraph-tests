@@ -8,7 +8,7 @@ public class Targets {
 		AnalysisTarget target = new AnalysisTarget();
 
 		target.processPath("./../jcg/target/scala-2.10/classes/");
-		target.setEntryPointCalculator(new AllConcreteMethodsEP());		
+		target.setEntryPointCalculator(AllConcreteMethodsEP.v());
 		return target;
 	}
 

@@ -4,8 +4,8 @@ import junit.framework.TestSuite;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.AllTests;
-import org.opalj.test.annotations.CallGraphAlgorithm;
-import org.opalj.test.annotations.CallGraphAlgorithmMode;
+import org.opalj.annotations.callgraph.CallGraphAlgorithm;
+import org.opalj.annotations.callgraph.CallGraphAlgorithmMode;
 
 import de.tud.cs.soot.callgraph.tests.TestSuiteCreator;
 

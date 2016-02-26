@@ -1,7 +1,7 @@
 package de.tud.cs.soot.callgraph.options;
 
-import org.opalj.test.annotations.CallGraphAlgorithm;
-import org.opalj.test.annotations.CallGraphAlgorithmMode;
+import org.opalj.annotations.callgraph.CallGraphAlgorithm;
+import org.opalj.annotations.callgraph.CallGraphAlgorithmMode;
 import de.tud.cs.peaks.sootconfig.CallGraphPhaseOptions;
 import de.tud.cs.peaks.sootconfig.FluentOptions;
 import de.tud.cs.peaks.sootconfig.JimpleBodyCreationPhaseOptions;
