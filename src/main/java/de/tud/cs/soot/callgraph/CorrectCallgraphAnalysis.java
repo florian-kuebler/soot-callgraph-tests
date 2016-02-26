@@ -35,6 +35,9 @@ import de.tud.cs.soot.callgraph.result.ResultClass;
 import de.tud.cs.soot.callgraph.result.ResultMethod;
 
 public class CorrectCallgraphAnalysis {
+	private final static String CALL_SITES_CLASS = "L" + CallSites.class.getName().replace('.', '/') + ";";
+	private final static String CALL_SITE_CLASS = "L" + CallSite.class.getName().replace('.', '/') + ";";
+	
 	private FluentOptions options;
 	private AnalysisTarget target;
 	private CallGraphAlgorithm cga;
@@ -114,29 +117,19 @@ public class CorrectCallgraphAnalysis {
 						edges.add(edge);
 					}
 				}
-
 				for (AnnotationTag at : vat.getAnnotations()) {
-					switch (at.getType()) {
-
-					case "Lorg/opalj/test/annotations/CallSites;":
+					if (at.getType().equals(CALL_SITES_CLASS)) {
 						CallSites callSites = (CallSites) aic.create(at);
 
 						for (CallSite callSite : callSites.value()) {
 							results.addAll(handleCallSite(callSite, edges));
 						}
-
-						break;
-
-					case "Lorg/opalj/test/annotations/CallSite;":
+					} else if (at.getType().equals(CALL_SITE_CLASS)) {
 						CallSite callSite = (CallSite) aic.create(at);
 
 						results.addAll(handleCallSite(callSite, edges));
-
-						break;
-
-					default:
+					} else {
 						edges.clear();
-						break;
 					}
 				}
 
