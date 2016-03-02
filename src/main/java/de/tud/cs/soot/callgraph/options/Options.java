@@ -11,8 +11,8 @@ import de.tud.cs.peaks.sootconfig.TagAggregatorOptions;
 public class Options {
 
 	private static FluentOptions getBasicFluentOptions() {
-		FluentOptions options = new FluentOptions().keepLineNumbers().fullResolver().noBodiesForExcluded()
-				.allowPhantomReferences().wholeProgramAnalysis().prependClasspath()
+		FluentOptions options = new FluentOptions().keepLineNumbers().fullResolver()
+				.allowPhantomReferences().wholeProgramAnalysis()
 				.addPhaseOptions(new JimpleBodyCreationPhaseOptions().useOriginalNames())
 				.addPhaseOptions(new TagAggregatorOptions().aggregateLineNumber());
 

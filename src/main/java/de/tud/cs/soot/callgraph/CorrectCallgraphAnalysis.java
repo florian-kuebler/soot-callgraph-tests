@@ -69,7 +69,6 @@ public class CorrectCallgraphAnalysis {
 
 	private Result checkClasses(Scene scene) {
 		Result result = new Result();
-
 		for (SootClass sc : scene.getApplicationClasses()) {
 			Set<ResultMethod> methods = checkClass(scene, sc);
 			if (!methods.isEmpty()) {

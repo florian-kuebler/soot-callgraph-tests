@@ -17,8 +17,8 @@ import de.tud.cs.soot.callgraph.util.MethodUtils;
 
 public class CSVResultTraverser implements IResultTraverser {
 
-	private static final String LINE_SEPERATOR = System.getProperty("line.separator");
-	private static final String COMMA = ";";
+	private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+	private static final String SEPARATOR = "\t";
 
 	FileWriter fileWriter;
 
@@ -33,41 +33,41 @@ public class CSVResultTraverser implements IResultTraverser {
 	public void traverse(Result result, int index) {
 		try {
 			fileWriter.append("Class;Caller;Callee;Declared;Called");
-			fileWriter.append(LINE_SEPERATOR);
+			fileWriter.append(LINE_SEPARATOR);
 			for (ResultClass clazz : result.getClasses()) {
 				for (ResultMethod method : clazz.getMethods()) {
 					SootMethod caller = method.getSootMethod();
 					for (ResultCall call : method.getCalls()) {
 						
 						fileWriter.append(clazz.getSootClass().toString());
-						fileWriter.append(COMMA);
+						fileWriter.append(SEPARATOR);
 						fileWriter.append(caller.toString());
-						fileWriter.append(COMMA);
+						fileWriter.append(SEPARATOR);
 						
 						if (call instanceof DeclaredMethodCalled) {
 							DeclaredMethodCalled call2 = (DeclaredMethodCalled) call;
 							fileWriter.append(call2.getCallEdge().tgt().toString());
-							fileWriter.append(COMMA);
+							fileWriter.append(SEPARATOR);
 							fileWriter.append("YES");
-							fileWriter.append(COMMA);
+							fileWriter.append(SEPARATOR);
 							fileWriter.append("YES");
 						} else if (call instanceof DeclaredMethodNotCalled) {
 							DeclaredMethodNotCalled call2 = (DeclaredMethodNotCalled) call;
 							fileWriter.append(MethodUtils.toSootMethodStyle(call2.getCallSite(), call2.getResolvedMethod()));
-							fileWriter.append(COMMA);
+							fileWriter.append(SEPARATOR);
 							fileWriter.append("YES");
-							fileWriter.append(COMMA);
+							fileWriter.append(SEPARATOR);
 							fileWriter.append("NO");
 							
 						} else if (call instanceof NotDeclaredMethodCalled) {
 							fileWriter.append(((NotDeclaredMethodCalled) call).getCallEdge().tgt().toString());
-							fileWriter.append(COMMA);
+							fileWriter.append(SEPARATOR);
 							fileWriter.append("NO");
-							fileWriter.append(COMMA);
+							fileWriter.append(SEPARATOR);
 							fileWriter.append("YES");
 						} else
 							throw new RuntimeException("Unexpected ResultCall: " + call);
-						fileWriter.append(LINE_SEPERATOR);
+						fileWriter.append(LINE_SEPARATOR);
 					}
 				}
 			}
