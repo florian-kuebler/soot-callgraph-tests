@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WorkaroundCSVTraverser {
-    private Map<CallSite, CSVEntry> results;
+    private Map<String, CSVEntry> results;
 
     private FileWriter fileWriter;
 
@@ -31,13 +31,13 @@ public class WorkaroundCSVTraverser {
                 for (ResultCall call : method.getCalls()) {
                     if (call instanceof DeclaredMethodCalled) {
                         DeclaredMethodCalled call2 = (DeclaredMethodCalled) call;
-
                         CallSite callSite = call2.getCallSite();
-                        CSVEntry csvEntry = results.get(callSite);
+                        String s = callSite.line() + ":" + call2.getCallEdge().getSrc().toString() + ":" + callSite.name();
+                        CSVEntry csvEntry = results.get(s);
 
                         if (csvEntry == null) {
                             csvEntry = new CSVEntry(fileWriter, callSite);
-                            results.put(callSite, csvEntry);
+                            results.put(s, csvEntry);
                         }
 
                         csvEntry.addCall(call2, cga);
